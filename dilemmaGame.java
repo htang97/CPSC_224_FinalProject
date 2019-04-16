@@ -32,7 +32,8 @@ public class dilemmaGame extends JFrame{
 		panel.add(quitButton);
 		add(panel);
 		setVisible(true);
-	    playButton.addActionListener(new ButtonListener());
+		
+	    	playButton.addActionListener(new ButtonListener());
 		customButton.addActionListener(new ButtonListener());
 		helpButton.addActionListener(new ButtonListener());
 		quitButton.addActionListener(new ButtonListener());
