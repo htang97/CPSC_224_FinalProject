@@ -51,11 +51,11 @@ public class PlayGameFrame extends JFrame{
 		public void actionPerformed(ActionEvent e) {
 			String actionCommand = e.getActionCommand();
 			// Show what player have chosen
-			if(actionCommand.equals("Trust another player")) {
+			if(actionCommand.equals("O")) {
 
 				
 				
-			}else if(actionCommand.equals("Do Not Trust another player")) {
+			}else if(actionCommand.equals("X")) {
 				
 				
 			}
@@ -65,11 +65,11 @@ public class PlayGameFrame extends JFrame{
 		public void actionPerformed(ActionEvent e) {
 			String actionCommand = e.getActionCommand();
 			//show another player's chose
-			if(actionCommand.equals("Trust another player")) {
+			if(actionCommand.equals("O")) {
 
 				
 				
-			}else if(actionCommand.equals("Do Not Trust another player")) {
+			}else if(actionCommand.equals("X")) {
 				
 				
 			}
