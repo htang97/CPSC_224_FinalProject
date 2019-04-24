@@ -21,6 +21,9 @@ public class PlayGameFrame extends JFrame{
       The results panel will have a few charts showing what each player did in
          each round and how many total points they each scored
    */
+   private JButton exitButton;
+   private JLabel scores;
+   private JScrollPane choices;
 
    private boolean[][]cooperate;//this array stores player 1's response at [0][0-29]
    //Player 2 is [1][0-29]
@@ -66,12 +69,18 @@ public class PlayGameFrame extends JFrame{
 		gamePanel.add(coButton2);
 		label2 = new JLabel("Defect");
 		gamePanel.add(label2);
-		add(gamePanel);
+		setContentPane(gamePanel);
 
 		coButton1.addActionListener(new ButtonListener1());
 		notcoButton1.addActionListener(new ButtonListener1());
 		coButton2.addActionListener(new ButtonListener2());
 		notcoButton2.addActionListener(new ButtonListener2());
+
+      resultsPanel = new JPanel();
+      scores = new JLabel();
+      resultsPanel.add(scores);
+      exitButton = new JButton("Exit");
+      exitButton.addActionListener(new ButtonListener3());
 	}
 
    //Returns the final score for a player
@@ -139,6 +148,12 @@ public class PlayGameFrame extends JFrame{
 		}
 	}
 
+   private class ButtonListener3 implements ActionListener{
+      public void actionPerformed(ActionEvent e) {
+         //dispatchEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING));
+      }
+   }
+
    //Will move to next round if both players have inputted a move for this round.
    //Will not advance round if one player is not ready
    private void nextRound(){
@@ -153,6 +168,13 @@ public class PlayGameFrame extends JFrame{
 
          if(round > 30){
             //This is where the results panel comes up once the game is over
+            getContentPane().removeAll();
+
+            scores.setText("Player 1 Scored: " + calculateFinalScore(1)
+               + "\nPlayer 2 Scored: " + calculateFinalScore(2));
+            setContentPane(resultsPanel);
+            revalidate();
+            repaint();
          }
       }
    }
