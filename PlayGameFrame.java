@@ -135,7 +135,7 @@ public class PlayGameFrame extends JFrame{
    //Puts data into the JTable choices
    private void setUpTable(){
       for(int i = 0; i < 30; i++){
-         
+
       }
    }
 
@@ -205,8 +205,4 @@ public class PlayGameFrame extends JFrame{
          }
       }
    }
-
-	public static void main(String [] args) {
-		new PlayGameFrame();
-	}
 }
