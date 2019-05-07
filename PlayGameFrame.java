@@ -22,11 +22,13 @@ public class PlayGameFrame extends JFrame{
          each round and how many total points they each scored
    */
    private JButton exitButton;
-   private JLabel scores;
-   private JScrollPane choices;
+   private JLabel score1;
+   private JLabel score2;
+   private JTable choices;
 
-   private boolean[][]cooperate;//this array stores player 1's response at [0][0-29]
+   private boolean[][] cooperate;//this array stores player 1's response at [0][0-29]
    //Player 2 is [1][0-29]
+   private String[] names = {"Player 1", "Player 2"};
    private int round;
    private boolean player1Ready;
    private boolean player1Choice;
@@ -37,7 +39,7 @@ public class PlayGameFrame extends JFrame{
 		setVisible(true);
 		setTitle("1v1 Game");
 		setSize(width, height);
-		setDefaultCloseOperation(EXIT_ON_CLOSE);
+		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 
       cooperate = new boolean[2][30];
       round = 1;
@@ -77,11 +79,40 @@ public class PlayGameFrame extends JFrame{
 		notcoButton2.addActionListener(new ButtonListener2());
 
       resultsPanel = new JPanel();
-      scores = new JLabel();
-      resultsPanel.add(scores);
+      score1 = new JLabel();
+      resultsPanel.add(score1);
+      score2 = new JLabel();
+      resultsPanel.add(score2);
+
+      Object[] columnNames = {"P1 Choice", "P2 Choice", "P1 Score", "P2 Score"};
+      Object[][] data = new Object[4][30];
+      choices = new JTable(data, columnNames);
+      resultsPanel.add(choices);
+
       exitButton = new JButton("Exit");
       exitButton.addActionListener(new ButtonListener3());
+      resultsPanel.add(exitButton);
 	}
+
+   //Gets the score for a given player for a specific round
+   private int calculateRoundScore(int self, int other, int roundNum){
+      int score;
+
+      if(cooperate[self][roundNum]){//if the player chose to cooperate
+         if(cooperate[other][roundNum]){//if the opponent also cooperated
+            score = 3;//3 points if both cooperated
+         } else {//if the opponent defected
+            score = 1;//0 points if player was the sucker
+         }
+      } else {//if the player chose not to cooperate
+         if(cooperate[other][roundNum]){//if the opponent cooperated
+            score = 5;//4 points if the opponent is a sucker
+         } else {//if the opponent also defected
+            score = 2;//1 points if both players defected
+         }
+      }
+      return score;
+   }
 
    //Returns the final score for a player
    //Should be given a 1 or a 2 for the int player
@@ -95,22 +126,17 @@ public class PlayGameFrame extends JFrame{
          other = 0;
       }
 
-      for(int i = 0; i < 29; i++){
-         if(cooperate[self][i]){//if the player chose to cooperate
-            if(cooperate[other][i]){//if the opponent also cooperated
-               total += 3;//3 points if both cooperated
-            } else {//if the opponent defected
-               total += 0;//0 points if player was the sucker
-            }
-         } else {//if the player chose not to cooperate
-            if(cooperate[other][i]){//if the opponent cooperated
-               total += 4;//4 points if the opponent is a sucker
-            } else {//if the opponent also defected
-               total += 1;//1 points if both players defected
-            }
-         }
+      for(int i = 0; i < 30; i++){
+         total += calculateRoundScore(self, other, i);
       }
       return total;
+   }
+
+   //Puts data into the JTable choices
+   private void setUpTable(){
+      for(int i = 0; i < 30; i++){
+         
+      }
    }
 
 	private class ButtonListener1 implements ActionListener{
@@ -154,7 +180,7 @@ public class PlayGameFrame extends JFrame{
       }
    }
 
-   //Will move to next round if both players have inputted a move for this round.
+   //Will move to next round if both players have inputed a move for this round.
    //Will not advance round if one player is not ready
    private void nextRound(){
       if(player1Ready && player2Ready){
@@ -170,8 +196,9 @@ public class PlayGameFrame extends JFrame{
             //This is where the results panel comes up once the game is over
             getContentPane().removeAll();
 
-            scores.setText("Player 1 Scored: " + calculateFinalScore(1)
+            score1.setText("Player 1 Scored: " + calculateFinalScore(1)
                + "\nPlayer 2 Scored: " + calculateFinalScore(2));
+            setUpTable();
             setContentPane(resultsPanel);
             revalidate();
             repaint();
