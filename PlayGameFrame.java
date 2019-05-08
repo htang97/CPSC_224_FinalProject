@@ -1,11 +1,10 @@
-// Start a 1v1 game
 import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.table.*;
 import java.awt.*;
 
 public class PlayGameFrame extends JFrame{
-	private int width = 900;
+	private int width = 600;
 	private int height = 600;
    private int numOfRounds;
 	private JPanel gamePanel;//The panel the game is played on
@@ -15,6 +14,9 @@ public class PlayGameFrame extends JFrame{
 	private JButton notcoButton2;
 	private JLabel label1;
    private JLabel label2;
+   private JLabel playerlabel1;
+   private JLabel playerlabel2;
+   private JLabel roundnumberlabel;
 
    private JPanel resultsPanel;//The panel the results are shown on
    /*We should have a label above the buttons for player 1 and player 2,
@@ -49,9 +51,10 @@ public class PlayGameFrame extends JFrame{
       player2Choice = false;
 
 		gamePanel = new JPanel();
-		gamePanel.setLayout(new BoxLayout(gamePanel, BoxLayout.X_AXIS));
-		gamePanel.add(Box.createRigidArea(new Dimension(140, 10)));
-
+		gamePanel.setLayout(new BoxLayout(gamePanel, BoxLayout.Y_AXIS));
+		gamePanel.add(Box.createRigidArea(new Dimension(130, 60)));
+		playerlabel1 = new JLabel("Player1");
+		gamePanel.add(playerlabel1);
 		coButton1 = new JButton("O");
 		gamePanel.add(coButton1);
 		label1 = new JLabel("Trust");
@@ -61,7 +64,9 @@ public class PlayGameFrame extends JFrame{
 		gamePanel.add(notcoButton1);
 		label2 = new JLabel("Defect");
 		gamePanel.add(label2);
-		gamePanel.add(Box.createRigidArea(new Dimension(150, 10)));
+		gamePanel.add(Box.createRigidArea(new Dimension(40, 100)));
+		playerlabel2 = new JLabel("Player2");
+		gamePanel.add(playerlabel2);
 		notcoButton2 = new JButton("O");
 		gamePanel.add(notcoButton2);
 		label1 = new JLabel("Trust");
@@ -71,8 +76,10 @@ public class PlayGameFrame extends JFrame{
 		gamePanel.add(coButton2);
 		label2 = new JLabel("Defect");
 		gamePanel.add(label2);
+		gamePanel.add(Box.createRigidArea(new Dimension(40, 50)));
+		roundnumberlabel = new JLabel("Round Number");
+		gamePanel.add(roundnumberlabel);
 		setContentPane(gamePanel);
-
 		coButton1.addActionListener(new ButtonListener1());
 		notcoButton1.addActionListener(new ButtonListener1());
 		coButton2.addActionListener(new ButtonListener2());
