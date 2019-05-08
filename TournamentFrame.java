@@ -25,6 +25,10 @@ public class TournamentFrame extends JFrame {
    private JTextField forgField = new JTextField("0", 20);
    private JTextField vengField = new JTextField("0", 20);
    private JTextField collField = new JTextField("0", 20);
+   private JLabel results;
+   private JLabel aveScore;
+   private JLabel totalScore;
+   private JLabel totalPoints;
    private JButton runButton;
    GridBagConstraints gc = new GridBagConstraints();
 
