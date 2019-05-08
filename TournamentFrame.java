@@ -25,6 +25,10 @@ public class TournamentFrame extends JFrame {
    private JTextField forgField = new JTextField("0", 20);
    private JTextField vengField = new JTextField("0", 20);
    private JTextField collField = new JTextField("0", 20);
+   private JLabel results;
+   private JLabel aveScore;
+   private JLabel totalScore;
+   private JLabel totalPoints;
    private JButton runButton;
    GridBagConstraints gc = new GridBagConstraints();
 
@@ -160,7 +164,18 @@ public class TournamentFrame extends JFrame {
    }
 
    private void setUpResults(int[][] uniqueGames, int totalUniqueGames){
-
+	   
+	   setSize(400,500);
+	   setTitle("Results");
+	   resultsPanel = new JPanel(getLayout());
+	   results = new JLabel("RESULTS");
+	   resultsPanel.add(results);
+	   aveScore = new JLabel("Average Score of each strategy: ");
+	   resultsPanel.add(aveScore);
+	   totalScore = new JLabel("Total score accumulated: ");
+	   resultsPanel.add(totalScore);
+	   totalPoints = new JLabel(""); // appropriate name set
+	   resultsPanel.add(totalPoints);
    }
 
    //gives the average score per game for a strategy
