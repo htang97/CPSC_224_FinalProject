@@ -161,6 +161,17 @@ public class TournamentFrame extends JFrame {
 
    private void setUpResults(int[][] uniqueGames, int totalUniqueGames){
 
+	   setVisible(true);
+	   setSize(400,500);
+	   resultsPanel = new JPanel(getLayout());
+	   results = new JLabel("RESULTS");
+	   resultsPanel.add(results);
+	   aveScore = new JLabel("Average Score of each strategy: ");
+	   resultsPanel.add(aveScore);
+	   totalScore = new JLabel("Total score accumulated: ");
+	   resultsPanel.add(totalScore);
+	   totalPoints = new JLabel(""); // appropriate name set
+	   resultsPanel.add(totalPoints);
    }
 
    //gives the average score per game for a strategy
