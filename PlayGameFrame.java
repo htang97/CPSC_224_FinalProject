@@ -140,7 +140,7 @@ public class PlayGameFrame extends JFrame{
    }
 
 	private class ButtonListener1 implements ActionListener{
-		public void actionPerformed(ActionEvent e)
+		public void actionPerformed(ActionEvent e){
 			if(e.getSource() == coButton1) {
             player1Ready = true;
             player1Choice = true;

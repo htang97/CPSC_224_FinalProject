@@ -47,7 +47,7 @@ public class TournamentFrame extends JFrame {
       add(setUpPanel1);
    }
 
-   
+
 
    private int calculateAverage(String name){
       return 1;
@@ -57,7 +57,7 @@ public class TournamentFrame extends JFrame {
       return 1;
    }
 
-   public static void main(String args[]){
+   public static void main(String[] args){
       TournamentFrame theFrame = new TournamentFrame();
    }
 }
