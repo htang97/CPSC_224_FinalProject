@@ -4,8 +4,8 @@ import javax.swing.*;
 import java.awt.*;
 
 public class TournamentFrame extends JFrame {
-   private int width = 350;
-	private int height = 500;
+   private int width = 500;
+	private int height = 600;
    private int numOfRounds;
    private int numOfPlayers;
    private int numOfStrats;
@@ -13,11 +13,11 @@ public class TournamentFrame extends JFrame {
 
 	private JPanel setUpPanel1;//First Panel in tournaments
    private JLabel roundsLabel;
-   private JTextField roundsField;
+   private JTextField roundsField = new JTextField(20);
    private JLabel playersLabel;
-   private JTextField playersField;
+   private JTextField playersField = new JTextField(20);
    private JLabel strategiesLabel;
-   private JTextField strategiesField;
+   private JTextField strategiesField = new JTextField(20);
    private JButton nextButton1;
 
    private JPanel setUpPanel2;
@@ -31,16 +31,19 @@ public class TournamentFrame extends JFrame {
 
       setUpPanel1 = new JPanel();
       setUpPanel1.setLayout(new GridLayout(4, 2));
+     roundsField.setBounds(10,10,30,20);
       roundsLabel = new JLabel("# of Rounds:");
       setUpPanel1.add(roundsLabel);
+     setUpPanel1.add(roundsField);
+     playersField.setBounds(10,10,30,20);
       playersLabel = new JLabel("# of Players:");
       setUpPanel1.add(playersLabel);
+     setUpPanel1.add(playersField);
+     strategiesField.setBounds(10,10,30,20);
       strategiesLabel = new JLabel("# of Unique Strategies:");
       setUpPanel1.add(strategiesLabel);
-      //JTextField really just is not working on my computer right now
-      // I reinstalled java and it still jsut is not working
-      //roundsField = new JTextField("This Constructor?");
-      //setUpPanel1.add(roundsField);
+     setUpPanel1.add(strategiesField);
+      
       nextButton1 = new JButton("Next");
       setUpPanel1.add(nextButton1);
 
