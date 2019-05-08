@@ -45,7 +45,7 @@ public class HelpFrame extends JFrame {
             case 1://intro to prisoner's dilemna
                text.setText("<html>While game theory attempts to cover any game in which the "
                   + "<br>player rationally pursues its self-interest, this software"
-                  + "<br>will focus on the famous Prisoner's Dilemna."
+                  + "<br>will focus on the famous Prisoner's Dilemma."
                   + "<br>This exercise is based on the premise that if both players"
                   + "<br>choose to work together, the most overall points are gained."
                   + "<br>But if one player chooses to betray the other, then they get"
