@@ -6,21 +6,30 @@ import java.awt.*;
 public class TournamentFrame extends JFrame {
    private int width = 500;
 	private int height = 600;
+   private final int TOTAL_STRATEGIES = 7;
    private int numOfRounds;
    private int numOfPlayers;
    private int numOfStrats;
-   private Strategy[] players;
+   private int scoreHolder1, scoreHolder2;
+   private String[] stratNames = {"Lucifer", "Jesus", "Grim Trigger",
+      "Tit for Tat", "Forgiving Tit for Tat", "Vengeful Tit for Tat",
+      "Collaborator"};
+   private int[] stratNums = new int[TOTAL_STRATEGIES];
 
-	private JPanel setUpPanel1;//First Panel in tournaments
+	private JPanel setUpPanel;//First Panel in tournaments
    private JLabel roundsLabel;
-   private JTextField roundsField = new JTextField(20);
-   private JLabel playersLabel;
-   private JTextField playersField = new JTextField(20);
-   private JLabel strategiesLabel;
-   private JTextField strategiesField = new JTextField(20);
-   private JButton nextButton1;
+   private JLabel[] stratLabels = new JLabel[TOTAL_STRATEGIES];
+   private JTextField roundsField = new JTextField("100", 20);
+   private JTextField luciField = new JTextField("0", 20);
+   private JTextField jesuField = new JTextField("0", 20);
+   private JTextField grimField = new JTextField("0", 20);
+   private JTextField titfField = new JTextField("0", 20);
+   private JTextField forgField = new JTextField("0", 20);
+   private JTextField vengField = new JTextField("0", 20);
+   private JTextField collField = new JTextField("0", 20);
+   private JButton runButton;
+   GridBagConstraints gc = new GridBagConstraints();
 
-   private JPanel setUpPanel2;
    private JPanel resultsPanel;
 
    TournamentFrame() {//Constructor
@@ -28,29 +37,97 @@ public class TournamentFrame extends JFrame {
 		setTitle("Tournament");
 		setSize(width, height);
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+      scoreHolder1 = 0;
+      scoreHolder2 = 0;
 
-      setUpPanel1 = new JPanel();
-      setUpPanel1.setLayout(new GridLayout(4, 2));
+      setUpPanel = new JPanel(new GridBagLayout());
+      gc.gridx = 0;
+      gc.gridy = 0;
       roundsField.setBounds(10,10,30,20);
       roundsLabel = new JLabel("# of Rounds:");
-      setUpPanel1.add(roundsLabel);
-      setUpPanel1.add(roundsField);
-      playersField.setBounds(10,10,30,20);
-      playersLabel = new JLabel("# of Players:");
-      setUpPanel1.add(playersLabel);
-      setUpPanel1.add(playersField);
-      strategiesField.setBounds(10,10,30,20);
-      strategiesLabel = new JLabel("# of Unique Strategies:");
-      setUpPanel1.add(strategiesLabel);
-      setUpPanel1.add(strategiesField);
+      setUpPanel.add(roundsLabel, gc);
+      gc.gridx++;
+      setUpPanel.add(roundsField, gc);
+      gc.gridx--;
 
-      nextButton1 = new JButton("Next");
-      setUpPanel1.add(nextButton1);
+      buildSetUp(luciField, 0);
+      buildSetUp(jesuField, 1);
+      buildSetUp(grimField, 2);
+      buildSetUp(titfField, 3);
+      buildSetUp(forgField, 4);
+      buildSetUp(vengField, 5);
+      buildSetUp(collField, 6);
 
-      add(setUpPanel1);
+      gc.gridx = 1;
+      gc.gridy++;
+      runButton = new JButton("Run");
+		runButton.addActionListener(new ButtonListener1());
+      setUpPanel.add(runButton, gc);
+
+      add(setUpPanel);
    }
 
+   private void buildSetUp(JTextField theField, int i){
+      gc.gridy++;
+      theField.setBounds(10,10,30,20);
+      stratLabels[i] = new JLabel(stratNames[i]);
+      setUpPanel.add(stratLabels[i], gc);
+      gc.gridx++;
+      setUpPanel.add(theField, gc);
+      gc.gridx--;
+   }
 
+   private class ButtonListener1 implements ActionListener{
+		public void actionPerformed(ActionEvent e){
+         int[][] uniqueGames = new int[TOTAL_STRATEGIES * TOTAL_STRATEGIES][4];
+         //first value is just a number to assign to the game
+         //the second integer here is:
+         //    0: identity of player 1
+         //    1: identity of player 2
+         //    2: points of player 1 in this game
+         //    3: points of player 2 in this game
+         int placeMarker = 0;
+
+			numOfRounds = Integer.parseInt(roundsField.getText());
+         stratNums[0] = Integer.parseInt(luciField.getText());
+         stratNums[1] = Integer.parseInt(jesuField.getText());
+         stratNums[2] = Integer.parseInt(grimField.getText());
+         stratNums[3] = Integer.parseInt(titfField.getText());
+         stratNums[4] = Integer.parseInt(forgField.getText());
+         stratNums[5] = Integer.parseInt(vengField.getText());
+         stratNums[6] = Integer.parseInt(collField.getText());
+
+
+         for(int i = 0; i < TOTAL_STRATEGIES; i++){
+            if(stratNums[i] > 0){
+               for(int j = i; j < TOTAL_STRATEGIES; j++){
+                  if(stratNums[j] > 0){
+                     uniqueGames[placeMarker][0] = i;
+                     uniqueGames[placeMarker][1] = j;
+                     calculateGame(i, j);
+                     uniqueGames[placemarker][2] = scoreHolder1;
+                     uniqueGames[placemarker][3] = scoreHolder2;
+                     placemarker++;
+                  }
+               }
+            }
+         }
+
+
+         setUpResults();
+		}
+	}
+
+   private void calculateGame(int player1, int player2){
+      boolean[] player1Choices = new boolean[numOfRounds];
+      boolean[] player2Choices = new boolean[numOfRounds];
+      
+
+   }
+
+   private void setUpResults(){
+
+   }
 
    private int calculateAverage(String name){
       return 1;
@@ -64,81 +141,3 @@ public class TournamentFrame extends JFrame {
       TournamentFrame theFrame = new TournamentFrame();
    }
 }
-//////////////Fixed Tournament Frame///////////////////////////
-/* Changed Window Size, Frame looking with GridBagLayout//////
-
-// Customize a Game
-import javax.swing.*;
-import java.awt.event.*;
-import javax.swing.*;
-import java.awt.*;
-
-public class TournamentFrame extends JFrame {
-	private int WINDTH = 400;
-	private int HEIGHT = 300;
-	private JButton button1;
-	private JTextField tx1 = new JTextField(10);
-	private JTextField tx2 = new JTextField(10);
-	private JTextField tx3 = new JTextField(10);
-	private JLabel lb1;
-	private JLabel lb2;
-	private JLabel lb3;
-	private JPanel panel;
-	GridBagConstraints gc = new GridBagConstraints();
-	public TournamentFrame() {
-		setVisible(true);
-		panel = new JPanel(new GridBagLayout());
-		setTitle("Customize Your Game");
-		setSize(WINDTH, HEIGHT);
-		setDefaultCloseOperation(EXIT_ON_CLOSE);
-		gc.gridx = 0;
-		gc.gridy = 0;
-		
-		lb1 = new JLabel("# Rounds");
-		panel.add(lb1,gc);
-		gc.gridy++;
-		lb2 = new JLabel("# Players");
-		panel.add(lb2,gc);
-		gc.gridy++;
-		lb3 = new JLabel("# unique strategies");
-		panel.add(lb3,gc);
-		
-		gc.gridx = 1;
-		gc.gridy = 0;
-		panel.add(tx1,gc);
-		gc.gridy++;
-		panel.add(tx2,gc);
-		gc.gridy++;
-		panel.add(tx3,gc);
-		
-		gc.gridx = 1;
-		gc.gridy = 10;
-		button1 = new JButton("Next");
-		panel.add(button1,gc);
-		add(panel);
-		button1.addActionListener(new ButtonListener());
-	}
-	
-	// Go to another setting frame, close this one
-	private class ButtonListener implements ActionListener{
-
-		public void actionPerformed(ActionEvent e) {
-		
-			String actionCommand = e.getActionCommand();
-			
-			if(actionCommand.equals("Next")) {
-				
-				new setupPanel2();
-				setVisible(false);
-
-			}
-				
-		}
-	}
-
-	public static void main(String [] args) {
-		new TournamentFrame();
-	}
-		
-}
-*/
