@@ -1,7 +1,3 @@
-package gameTheoryApp;
-
-import Java.util.*;
-
 public class Strategy {
    private String name;
 	private boolean bool1;
@@ -23,9 +19,6 @@ public class Strategy {
             break;
          case "Tit for Tat":
             bool1 = true;//Tit for Tat cooperates turn 1
-            break;
-         case "Random":
-            bool1 = true;
             break;
          case "Forgiving Tit for Tat":
             bool1 = true;//Cooperates turn 1
@@ -58,9 +51,6 @@ public class Strategy {
          case "Tit for Tat":
             choice = getTitForTat(priorOppMove);
             break;
-         case "Random":
-            choice = getRandom();
-            break;
          case "Forgiving Tit for Tat":
             choice = getForgiving(priorOppMove);
             break;
@@ -85,14 +75,6 @@ public class Strategy {
 
    private boolean getTitForTat(boolean priorOppMove){
       return priorOppMove;
-   }
-
-   private boolean getRandom(){
-      if(Math.random() >= .5){
-         return true;
-      } else {
-         return false;
-      }
    }
 
    private boolean getForgiving(boolean priorOppMove){
@@ -139,7 +121,7 @@ public class Strategy {
             case 5:
                bool1 = false;
                if(!(priorOppMove == true))
-                  bool2 = false
+                  bool2 = false;
                break;
             case 6:
                bool1 = true;
