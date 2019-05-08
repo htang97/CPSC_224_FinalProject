@@ -74,7 +74,7 @@ import javax.swing.*;
 import java.awt.*;
 
 public class TournamentFrame extends JFrame {
-	private int WINDTH = 300;
+	private int WINDTH = 400;
 	private int HEIGHT = 300;
 	private JButton button1;
 	private JTextField tx1 = new JTextField(10);
