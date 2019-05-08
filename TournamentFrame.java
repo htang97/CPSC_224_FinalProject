@@ -65,14 +65,16 @@ public class TournamentFrame extends JFrame {
       setUpPanel.add(runButton, gc);
 
       add(setUpPanel);
-      resultsPanel.setLayout(new BoxLayout(resultsPanel, BoxLayout.X_AXIS));
 	   resultsPanel = new JPanel();
+      resultsPanel.setLayout(new BoxLayout(resultsPanel, BoxLayout.Y_AXIS));
 	   results = new JLabel("RESULTS");
 	   resultsPanel.add(results);
+      resultsPanel.add(Box.createRigidArea(new Dimension(130, 60)));
 	   aveScore = new JLabel();
 	   resultsPanel.add(aveScore);
 	   totalScore = new JLabel();
 	   resultsPanel.add(totalScore);
+      resultsPanel.add(Box.createRigidArea(new Dimension(130, 60)));
    }
 
    private void buildSetUp(JTextField theField, int i){
@@ -180,12 +182,12 @@ public class TournamentFrame extends JFrame {
             scoreText = scoreText + "<br>" + stratNames[i] + ": " + calculateAverage(uniqueGames, i, totalUniqueGames);
          }
       }
-      resultsPanel.add(Box.createRigidArea(new Dimension(130, 60)));
+
 
       aveScore.setText(scoreText);
       totalScore.setText("Total score accumulated: " + calculateTotalPoints(uniqueGames, totalUniqueGames));
-      resultsPanel.add(Box.createRigidArea(new Dimension(130, 60)));
-      
+
+
       setContentPane(resultsPanel);
       revalidate();
       repaint();
