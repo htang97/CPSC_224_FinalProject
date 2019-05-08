@@ -48,7 +48,7 @@ public class HelpFrame extends JFrame {
 		}
 	}
 
-   public static void main(String[] args) {
-      HelpFrame theFrame = new HelpFrame();
-   }
+   //public static void main(String[] args) {
+      //HelpFrame theFrame = new HelpFrame();
+   //}
 }
