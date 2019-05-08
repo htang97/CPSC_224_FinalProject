@@ -1,6 +1,7 @@
 // Start a 1v1 game
 import java.awt.event.*;
 import javax.swing.*;
+import javax.swing.table.*;
 import java.awt.*;
 
 public class PlayGameFrame extends JFrame{
@@ -18,9 +19,6 @@ public class PlayGameFrame extends JFrame{
    private JPanel resultsPanel;//The panel the results are shown on
    /*We should have a label above the buttons for player 1 and player 2,
       We should have a label that shows the round number
-      At round 30, it will move to a results panel with a button to exit
-      The results panel will have a few charts showing what each player did in
-         each round and how many total points they each scored
    */
    private JButton exitButton;
    private JLabel score1;
@@ -88,8 +86,11 @@ public class PlayGameFrame extends JFrame{
 
       Object[] columnNames = {"P1 Choice", "P2 Choice", "P1 Score", "P2 Score"};
       Object[][] data = new Object[numOfRounds][4];
-      choices = new JTable(data, columnNames);
-      resultsPanel.add(choices);
+      DefaultTableModel model = new DefaultTableModel(data, columnNames);
+      choices = new JTable(model);
+      choices.setBounds(30, 40, 200, 300);
+      JScrollPane choicesPane = new JScrollPane(choices);
+      resultsPanel.add(choicesPane);
 
       exitButton = new JButton("Exit");
       exitButton.addActionListener(new ButtonListener3());
@@ -137,6 +138,16 @@ public class PlayGameFrame extends JFrame{
    //Puts data into the JTable choices
    private void setUpTable(){
       for(int i = 0; i < numOfRounds; i++){
+         if(cooperate[0][i])
+            choices.getModel().setValueAt("Coop", i, 0);
+         else
+            choices.getModel().setValueAt("Defect", i, 0);
+         if(cooperate[1][i])
+            choices.getModel().setValueAt("Coop", i, 1);
+         else
+            choices.getModel().setValueAt("Defect", i, 1);
+         choices.getModel().setValueAt(calculateRoundScore(0, 1, i), i, 2);
+         choices.getModel().setValueAt(calculateRoundScore(1, 0, i), i, 3);
 
       }
    }
@@ -176,6 +187,7 @@ public class PlayGameFrame extends JFrame{
 		}
 	}
 
+   //the exist button listener
    private class ButtonListener3 implements ActionListener{
       public void actionPerformed(ActionEvent e) {
          dispose();
@@ -199,7 +211,7 @@ public class PlayGameFrame extends JFrame{
             getContentPane().removeAll();
 
             score1.setText("Player 1 Scored: " + calculateFinalScore(1)
-               + "\nPlayer 2 Scored: " + calculateFinalScore(2));
+               + "      Player 2 Scored: " + calculateFinalScore(2));
             setUpTable();
             setContentPane(resultsPanel);
             revalidate();
