@@ -31,19 +31,19 @@ public class TournamentFrame extends JFrame {
 
       setUpPanel1 = new JPanel();
       setUpPanel1.setLayout(new GridLayout(4, 2));
-     roundsField.setBounds(10,10,30,20);
+      roundsField.setBounds(10,10,30,20);
       roundsLabel = new JLabel("# of Rounds:");
       setUpPanel1.add(roundsLabel);
-     setUpPanel1.add(roundsField);
-     playersField.setBounds(10,10,30,20);
+      setUpPanel1.add(roundsField);
+      playersField.setBounds(10,10,30,20);
       playersLabel = new JLabel("# of Players:");
       setUpPanel1.add(playersLabel);
-     setUpPanel1.add(playersField);
-     strategiesField.setBounds(10,10,30,20);
+      setUpPanel1.add(playersField);
+      strategiesField.setBounds(10,10,30,20);
       strategiesLabel = new JLabel("# of Unique Strategies:");
       setUpPanel1.add(strategiesLabel);
-     setUpPanel1.add(strategiesField);
-      
+      setUpPanel1.add(strategiesField);
+
       nextButton1 = new JButton("Next");
       setUpPanel1.add(nextButton1);
 
