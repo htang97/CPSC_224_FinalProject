@@ -10,11 +10,6 @@ public class Strategy {
       setStrategy(givenName);
 	}
 
-   public void refresh(){
-      turn = 1;
-      setStrategy(name);
-   }
-
    public void setStrategy(String givenName){
       name = givenName;
 

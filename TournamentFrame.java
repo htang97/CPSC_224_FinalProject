@@ -234,8 +234,4 @@ public class TournamentFrame extends JFrame {
 
       return total / numOfPlayers;
    }
-
-   public static void main(String[] args){
-      TournamentFrame theFrame = new TournamentFrame();
-   }
 }
