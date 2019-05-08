@@ -66,15 +66,15 @@ public class TournamentFrame extends JFrame {
 
       add(setUpPanel);
 	   resultsPanel = new JPanel();
-      resultsPanel.setLayout(new BoxLayout(resultsPanel, BoxLayout.Y_AXIS));
+       resultsPanel.setLayout(new BoxLayout(resultsPanel, BoxLayout.Y_AXIS));
 	   results = new JLabel("RESULTS");
 	   resultsPanel.add(results);
-      resultsPanel.add(Box.createRigidArea(new Dimension(130, 60)));
+       resultsPanel.add(Box.createRigidArea(new Dimension(120, 20)));
 	   aveScore = new JLabel();
 	   resultsPanel.add(aveScore);
+	   resultsPanel.add(Box.createRigidArea(new Dimension(120, 20)));
 	   totalScore = new JLabel();
 	   resultsPanel.add(totalScore);
-      resultsPanel.add(Box.createRigidArea(new Dimension(130, 60)));
    }
 
    private void buildSetUp(JTextField theField, int i){
