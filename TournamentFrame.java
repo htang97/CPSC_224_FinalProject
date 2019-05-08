@@ -171,13 +171,18 @@ public class TournamentFrame extends JFrame {
    }
 
    private void setUpResults(int[][] uniqueGames, int totalUniqueGames){
-
+      String scoreText = "<html>Average Score of each strategy: ";
       getContentPane().removeAll();
 	   setSize(400,500);
       setTitle("Results");
 
-      aveScore.setText("<html>Average Score of each strategy: "
-         + "<br> ");
+      for(int i = 0; i < TOTAL_STRATEGIES; i++){
+         if(stratNums[i] > 0){
+            scoreText = scoreText + "<br>" + stratNames[i] + ": " + calculateAverage(uniqueGames, i, totalUniqueGames);
+         }
+      }
+
+      aveScore.setText(scoreText);
       totalScore.setText("Total score accumulated: " + calculateTotalPoints(uniqueGames, totalUniqueGames));
 
       setContentPane(resultsPanel);
