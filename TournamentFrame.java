@@ -166,6 +166,7 @@ public class TournamentFrame extends JFrame {
    private void setUpResults(int[][] uniqueGames, int totalUniqueGames){
 	   
 	   setSize(400,500);
+	   setTitle("Results");
 	   resultsPanel = new JPanel(getLayout());
 	   results = new JLabel("RESULTS");
 	   resultsPanel.add(results);
