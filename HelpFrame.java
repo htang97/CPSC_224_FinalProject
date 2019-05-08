@@ -68,10 +68,34 @@ public class HelpFrame extends JFrame {
                break;
             case 3://Specifics of setup tournament
                next.setText("Next");
-               text.setText("<html>In a tournament, ");
+               text.setText("<html>In a tournament, the goal is not win every individual game,"
+                  + "<br>but to accumlate the most point over the course of the"
+                  + "<br>tournament. Every individual automated strategy will play"
+                  + "<br>agaisnt every other strategy once."
+                  + "<br><br>The user can decide How many there will be of each"
+                  + "<br>strategy, and this distribution will likely affect which"
+                  + "<br>program ends up being the most effective. Feel free to"
+                  + "<br>experiement and find interesting sets of strategies that"
+                  + "<br>cause certain ones to be more effective."
+                  + "<br><br>Once the tournament has been calculated, you will be"
+                  + "<br>shown the results.");
                break;
             case 4://Specifics of different strategies
                next.setText("Quit");
+               text.setText("<html>List of all strategies:"
+                  + "<br><br>Lucifer- Will always defect no matter what"
+                  + "<br><br>Jesus- Will always cooperate no matter what"
+                  + "<br><br>Grim Trigger- Will cooperate until its opponent defects"
+                  + "<br>Then it will never cooperate again."
+                  + "<br><br>Tit for Tat- Will repay the opponent by copying their prior"
+                  + "<br>move. Essentially, it is retributive."
+                  + "<br><br>Forgiving Tit for Tat- Will forgive an opponent for one"
+                  + "<br>turn of defecting if they immediately go back to cooperating"
+                  + "<br><br>Vengeful Tit for Tat- Will expect an additional free turn"
+                  + "<br>of the other strategy being the sucker to make up for defection"
+                  + "<br><br>Collaborator- Will send out a special code and always cooperate"
+                  + "<br> with other identical strategies, and defect against anything"
+                  + "<br>different");
                break;
             case 5:
                dispose();
@@ -79,10 +103,4 @@ public class HelpFrame extends JFrame {
          }
 		}
 	}
-
-
-
-   public static void main(String[] args) {
-      HelpFrame theFrame = new HelpFrame();
-   }
 }
