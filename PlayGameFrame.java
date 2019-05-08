@@ -107,7 +107,7 @@ public class PlayGameFrame extends JFrame{
 
       if(cooperate[self][roundNum]){//if the player chose to cooperate
          if(cooperate[other][roundNum]){//if the opponent also cooperated
-            score = 3;//3 points if both cooperated
+            score = 4;//4 points if both cooperated
          } else {//if the opponent defected
             score = 1;//0 points if player was the sucker
          }

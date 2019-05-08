@@ -138,8 +138,8 @@ public class TournamentFrame extends JFrame {
       for(int i = 0; i < numOfRounds; i++){
          if(player1Choices[i]){//if the player chose to cooperate
             if(player2Choices[i]){//if the opponent also cooperated
-               player1Total += 3;//3 points if both cooperated
-               player2Total += 3;
+               player1Total += 4;//3 points if both cooperated
+               player2Total += 4;
             } else {//if the opponent defected
                player1Total += 1;//1 points if player was the sucker
                player2Total += 5;
