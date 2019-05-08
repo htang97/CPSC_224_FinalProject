@@ -19,9 +19,6 @@ public class PlayGameFrame extends JFrame{
    private JLabel roundnumberlabel;
 
    private JPanel resultsPanel;//The panel the results are shown on
-   /*We should have a label above the buttons for player 1 and player 2,
-      We should have a label that shows the round number
-   */
    private JButton exitButton;
    private JLabel score1;
    private JLabel score2;
@@ -42,7 +39,7 @@ public class PlayGameFrame extends JFrame{
 		setSize(width, height);
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 
-      numOfRounds = 3;
+      numOfRounds = 30;
       cooperate = new boolean[2][numOfRounds];
       round = 1;
       player1Ready = false;
@@ -67,17 +64,17 @@ public class PlayGameFrame extends JFrame{
 		gamePanel.add(Box.createRigidArea(new Dimension(40, 100)));
 		playerlabel2 = new JLabel("Player2");
 		gamePanel.add(playerlabel2);
-		notcoButton2 = new JButton("O");
-		gamePanel.add(notcoButton2);
+		coButton2 = new JButton("O");
+		gamePanel.add(coButton2);
 		label1 = new JLabel("Trust");
 		gamePanel.add(label1);
 		gamePanel.add(Box.createRigidArea(new Dimension(40, 10)));
-		coButton2 = new JButton("X");
-		gamePanel.add(coButton2);
+		notcoButton2 = new JButton("X");
+		gamePanel.add(notcoButton2);
 		label2 = new JLabel("Defect");
 		gamePanel.add(label2);
 		gamePanel.add(Box.createRigidArea(new Dimension(40, 50)));
-		roundnumberlabel = new JLabel("Round Number");
+      roundnumberlabel = new JLabel("Round Number: 1");
 		gamePanel.add(roundnumberlabel);
 		setContentPane(gamePanel);
 		coButton1.addActionListener(new ButtonListener1());
@@ -208,6 +205,7 @@ public class PlayGameFrame extends JFrame{
          cooperate[0][round - 1] = player1Choice;
          cooperate[1][round - 1] = player2Choice;
          round++;
+         roundnumberlabel.setText("Round Number: " + round);
          player1Ready = false;
          player1Choice = false;
          player2Ready = false;
@@ -227,7 +225,4 @@ public class PlayGameFrame extends JFrame{
       }
    }
 
-   public static void main(String[] args) {
-      PlayGameFrame theFrame = new PlayGameFrame();
-   }
 }
