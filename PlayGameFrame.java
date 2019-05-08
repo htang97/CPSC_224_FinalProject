@@ -176,7 +176,7 @@ public class PlayGameFrame extends JFrame{
 
    private class ButtonListener3 implements ActionListener{
       public void actionPerformed(ActionEvent e) {
-         //dispatchEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING));
+         this.dispose();
       }
    }
 

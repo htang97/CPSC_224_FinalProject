@@ -5,9 +5,12 @@ public class Strategy {
 	private int num1;
    private int turn;
 
-	public Strategy(String givenName) {
-      name = givenName;
+	public Strategy() {
       turn = 1;
+	}
+
+   public void setStrategy(String givenName){
+      name = givenName;
 
       switch(givenName) {
          case "Lucifer"://Lucifer programs only need the name
@@ -33,7 +36,7 @@ public class Strategy {
             bool2 = true;//This will become false once an opponent does not do it's code
             break;
 		}
-	}
+   }
 
    public boolean getCoop(boolean priorOppMove){
       boolean choice = false;
