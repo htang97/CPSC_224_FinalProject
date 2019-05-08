@@ -39,7 +39,7 @@ public class PlayGameFrame extends JFrame{
 		setSize(width, height);
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 
-      numOfRounds = 30;
+      numOfRounds = 10;
       cooperate = new boolean[2][numOfRounds];
       round = 1;
       player1Ready = false;
