@@ -5,8 +5,9 @@ public class Strategy {
 	private int num1;
    private int turn;
 
-	public Strategy() {
+	public Strategy(String givenName) {
       turn = 1;
+      setStrategy(givenName);
 	}
 
    public void refresh(){

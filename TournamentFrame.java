@@ -8,8 +8,6 @@ public class TournamentFrame extends JFrame {
 	private int height = 600;
    private final int TOTAL_STRATEGIES = 7;
    private int numOfRounds;
-   private int numOfPlayers;
-   private int numOfStrats;
    private int scoreHolder1, scoreHolder2;
    private String[] stratNames = {"Lucifer", "Jesus", "Grim Trigger",
       "Tit for Tat", "Forgiving Tit for Tat", "Vengeful Tit for Tat",
@@ -79,13 +77,14 @@ public class TournamentFrame extends JFrame {
 
    private class ButtonListener1 implements ActionListener{
 		public void actionPerformed(ActionEvent e){
-         int[][] uniqueGames = new int[TOTAL_STRATEGIES * TOTAL_STRATEGIES][4];
+         int[][] uniqueGames = new int[TOTAL_STRATEGIES * TOTAL_STRATEGIES][5];
          //first value is just a number to assign to the game
          //the second integer here is:
          //    0: identity of player 1
          //    1: identity of player 2
          //    2: points of player 1 in this game
          //    3: points of player 2 in this game
+         //    4: the number of these games that occurred
          int placeMarker = 0;
 
 			numOfRounds = Integer.parseInt(roundsField.getText());
@@ -105,36 +104,102 @@ public class TournamentFrame extends JFrame {
                      uniqueGames[placeMarker][0] = i;
                      uniqueGames[placeMarker][1] = j;
                      calculateGame(i, j);
-                     uniqueGames[placemarker][2] = scoreHolder1;
-                     uniqueGames[placemarker][3] = scoreHolder2;
-                     placemarker++;
+                     uniqueGames[placeMarker][2] = scoreHolder1;
+                     uniqueGames[placeMarker][3] = scoreHolder2;
+                     uniqueGames[placeMarker][4] = stratNums[i] * stratNums[j];
+                     placeMarker++;
                   }
                }
             }
          }
 
 
-         setUpResults();
+         setUpResults(uniqueGames, placeMarker);
 		}
 	}
 
    private void calculateGame(int player1, int player2){
       boolean[] player1Choices = new boolean[numOfRounds];
       boolean[] player2Choices = new boolean[numOfRounds];
-      
+      Strategy strat1 = new Strategy(stratNames[player1]);
+      Strategy strat2 = new Strategy(stratNames[player2]);
+      int player1Total = 0;
+      int player2Total = 0;
+
+      //First round must be done outside of the loop
+      player1Choices[0] = strat1.getCoop(true);
+      player2Choices[0] = strat2.getCoop(true);
+
+      for(int i = 1; i < numOfRounds; i++){
+         player1Choices[i] = strat1.getCoop(player2Choices[i - 1]);
+         player2Choices[i] = strat2.getCoop(player1Choices[i - 1]);
+      }
+
+      for(int i = 0; i < numOfRounds; i++){
+         if(player1Choices[i]){//if the player chose to cooperate
+            if(player2Choices[i]){//if the opponent also cooperated
+               player1Total += 3;//3 points if both cooperated
+               player2Total += 3;
+            } else {//if the opponent defected
+               player1Total += 1;//1 points if player was the sucker
+               player2Total += 5;
+            }
+         } else {//if the player chose not to cooperate
+            if(player2Choices[i]){//if the opponent cooperated
+               player1Total += 5;//5 points if the opponent is a sucker
+               player2Total += 1;
+            } else {//if the opponent also defected
+               player1Total += 2;//2 points if both players defected
+               player2Total += 2;
+            }
+         }
+      }
+
+      scoreHolder1 = player1Total;
+      scoreHolder2 = player2Total;
+   }
+
+   private void setUpResults(int[][] uniqueGames, int totalUniqueGames){
 
    }
 
-   private void setUpResults(){
+   //gives the average score per game for a strategy
+   private int calculateAverage(int[][] uniqueGames, int chosenStrat,
+      int totalUniqueGames){
 
+      int totalScore = 0;
+      int totalGames = 0;
+
+      for(int i = 0; i < totalUniqueGames; i++){
+         if(uniqueGames[i][0] == chosenStrat){
+            totalScore += uniqueGames[i][2] * uniqueGames[i][4];
+            totalGames += uniqueGames[i][4];
+         } else if (uniqueGames[i][1] == chosenStrat){
+            totalScore += uniqueGames[i][3] * uniqueGames[i][4];
+            totalGames += uniqueGames[i][4];
+         }
+      }
+
+      return totalScore / totalGames;
    }
 
-   private int calculateAverage(String name){
-      return 1;
-   }
+   //Gives the overall number of points generated per capita
+   //    This is useful for telling how cooperative the game was overall
+   private int calculateTotalPoints(int[][] uniqueGames, int totalUniqueGames){
+      int numOfPlayers = 0;
+      int total = 0;
 
-   private int calculateTotalPoints(){
-      return 1;
+      for(int i = 0; i < TOTAL_STRATEGIES; i++){
+         numOfPlayers += stratNums[i];
+      }
+
+      for(int i = 0; i < totalUniqueGames; i++){
+         total += (uniqueGames[i][2] * uniqueGames[i][4]);
+         total += (uniqueGames[i][3] * uniqueGames[i][4]);
+      }
+
+
+      return total / numOfPlayers;
    }
 
    public static void main(String[] args){
