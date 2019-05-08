@@ -1,5 +1,7 @@
 package gameTheoryApp;
 
+import Java.util.*;
+
 public class Strategy {
    private String name;
 	private boolean bool1;
@@ -22,6 +24,21 @@ public class Strategy {
          case "Tit for Tat":
             bool1 = true;//Tit for Tat cooperates turn 1
             break;
+         case "Random":
+            bool1 = true;
+            break;
+         case "Forgiving Tit for Tat":
+            bool1 = true;//Cooperates turn 1
+            bool2 = true;// This will store what the opponent did 2 turns ago
+            break;
+         case "Vengeful Tit for Tat":
+            bool1 = true;//Cooperates turn 1
+            bool2 = true;// This will store what the opponent did 2 turns ago
+            break;
+         case "Collaborator":
+            bool1 = true;//This will store the value to return in turns 1-10
+            bool2 = true;//This will become false once an opponent does not do it's code
+            break;
 		}
 	}
 
@@ -41,6 +58,18 @@ public class Strategy {
          case "Tit for Tat":
             choice = getTitForTat(priorOppMove);
             break;
+         case "Random":
+            choice = getRandom();
+            break;
+         case "Forgiving Tit for Tat":
+            choice = getForgiving(priorOppMove);
+            break;
+         case "Vengeful Tit for Tat":
+            choice = getVengeful(priorOppMove);
+            break;
+         case "Collaborator":
+            choice = getCollaborator(priorOppMove);
+            break;
       }
 
       turn++;
@@ -56,6 +85,96 @@ public class Strategy {
 
    private boolean getTitForTat(boolean priorOppMove){
       return priorOppMove;
+   }
+
+   private boolean getRandom(){
+      if(Math.random() >= .5){
+         return true;
+      } else {
+         return false;
+      }
+   }
+
+   private boolean getForgiving(boolean priorOppMove){
+      bool1 = bool2;
+      bool2 = priorOppMove;
+
+      if(bool1 || bool2)
+         return true;
+      else
+         return false;
+   }
+
+   private boolean getVengeful(boolean priorOppMove){
+      bool1 = bool2;
+      bool2 = priorOppMove;
+
+      if(bool1 && bool2)
+         return true;
+      else
+         return false;
+   }
+
+   private boolean getCollaborator(boolean priorOppMove){
+      if(bool2){//if it thinks the opponent is the same code
+         switch(turn) {
+            case 1:
+               bool1 = true;
+               break;
+            case 2:
+               bool1 = true;
+               if(!(priorOppMove == true))
+                  bool2 = false;
+               break;
+            case 3:
+               bool1 = false;
+               if(!(priorOppMove == true))
+                  bool2 = false;
+               break;
+            case 4:
+               bool1 = true;
+               if(!(priorOppMove == false))
+                  bool2 = false;
+               break;
+            case 5:
+               bool1 = false;
+               if(!(priorOppMove == true))
+                  bool2 = false
+               break;
+            case 6:
+               bool1 = true;
+               if(!(priorOppMove == false))
+                  bool2 = false;
+               break;
+            case 7:
+               bool1 = true;
+               if(!(priorOppMove == true))
+                  bool2 = false;
+               break;
+            case 8:
+               bool1 = false;
+               if(!(priorOppMove == true))
+                  bool2 = false;
+               break;
+            case 9:
+               bool1 = false;
+               if(!(priorOppMove == false))
+                  bool2 = false;
+               break;
+            case 10:
+               bool1 = false;
+               if(!(priorOppMove == false))
+                  bool2 = false;
+               break;
+            default:
+               bool1 = true;
+               break;
+         }
+      } else {
+         bool1 = false;
+      }
+
+      return bool1;
    }
 
 
