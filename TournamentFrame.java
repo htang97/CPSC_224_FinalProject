@@ -1,4 +1,3 @@
-// Customize a Game
 import java.awt.event.*;
 import javax.swing.*;
 import java.awt.*;
@@ -66,7 +65,7 @@ public class TournamentFrame extends JFrame {
       setUpPanel.add(runButton, gc);
 
       add(setUpPanel);
-
+      resultsPanel.setLayout(new BoxLayout(resultsPanel, BoxLayout.X_AXIS));
 	   resultsPanel = new JPanel();
 	   results = new JLabel("RESULTS");
 	   resultsPanel.add(results);
@@ -181,10 +180,12 @@ public class TournamentFrame extends JFrame {
             scoreText = scoreText + "<br>" + stratNames[i] + ": " + calculateAverage(uniqueGames, i, totalUniqueGames);
          }
       }
+      resultsPanel.add(Box.createRigidArea(new Dimension(130, 60)));
 
       aveScore.setText(scoreText);
       totalScore.setText("Total score accumulated: " + calculateTotalPoints(uniqueGames, totalUniqueGames));
-
+      resultsPanel.add(Box.createRigidArea(new Dimension(130, 60)));
+      
       setContentPane(resultsPanel);
       revalidate();
       repaint();
