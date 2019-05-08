@@ -28,7 +28,6 @@ public class TournamentFrame extends JFrame {
    private JLabel results;
    private JLabel aveScore;
    private JLabel totalScore;
-   private JLabel totalPoints;
    private JButton runButton;
    GridBagConstraints gc = new GridBagConstraints();
 
@@ -67,6 +66,14 @@ public class TournamentFrame extends JFrame {
       setUpPanel.add(runButton, gc);
 
       add(setUpPanel);
+
+	   resultsPanel = new JPanel();
+	   results = new JLabel("RESULTS");
+	   resultsPanel.add(results);
+	   aveScore = new JLabel();
+	   resultsPanel.add(aveScore);
+	   totalScore = new JLabel();
+	   resultsPanel.add(totalScore);
    }
 
    private void buildSetUp(JTextField theField, int i){
@@ -164,18 +171,18 @@ public class TournamentFrame extends JFrame {
    }
 
    private void setUpResults(int[][] uniqueGames, int totalUniqueGames){
-	   
+
+      getContentPane().removeAll();
 	   setSize(400,500);
-	   setTitle("Results");
-	   resultsPanel = new JPanel(getLayout());
-	   results = new JLabel("RESULTS");
-	   resultsPanel.add(results);
-	   aveScore = new JLabel("Average Score of each strategy: ");
-	   resultsPanel.add(aveScore);
-	   totalScore = new JLabel("Total score accumulated: ");
-	   resultsPanel.add(totalScore);
-	   totalPoints = new JLabel(""); // appropriate name set
-	   resultsPanel.add(totalPoints);
+      setTitle("Results");
+
+      aveScore.setText("<html>Average Score of each strategy: "
+         + "<br> ");
+      totalScore.setText("Total score accumulated: " + calculateTotalPoints(uniqueGames, totalUniqueGames));
+
+      setContentPane(resultsPanel);
+      revalidate();
+      repaint();
    }
 
    //gives the average score per game for a strategy
@@ -195,7 +202,10 @@ public class TournamentFrame extends JFrame {
          }
       }
 
-      return totalScore / totalGames;
+      if(totalGames == 0)
+         return 0;
+      else
+         return totalScore / totalGames;
    }
 
    //Gives the overall number of points generated per capita
