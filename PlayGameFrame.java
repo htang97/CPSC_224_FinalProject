@@ -6,6 +6,7 @@ import java.awt.*;
 public class PlayGameFrame extends JFrame{
 	private int width = 900;
 	private int height = 600;
+   private int numOfRounds;
 	private JPanel gamePanel;//The panel the game is played on
 	private JButton coButton1;//Buttons for player 1
 	private JButton notcoButton1;
@@ -41,7 +42,8 @@ public class PlayGameFrame extends JFrame{
 		setSize(width, height);
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 
-      cooperate = new boolean[2][30];
+      numOfRounds = 3;
+      cooperate = new boolean[2][numOfRounds];
       round = 1;
       player1Ready = false;
       player1Choice = false;
@@ -85,7 +87,7 @@ public class PlayGameFrame extends JFrame{
       resultsPanel.add(score2);
 
       Object[] columnNames = {"P1 Choice", "P2 Choice", "P1 Score", "P2 Score"};
-      Object[][] data = new Object[4][30];
+      Object[][] data = new Object[numOfRounds][4];
       choices = new JTable(data, columnNames);
       resultsPanel.add(choices);
 
@@ -126,7 +128,7 @@ public class PlayGameFrame extends JFrame{
          other = 0;
       }
 
-      for(int i = 0; i < 30; i++){
+      for(int i = 0; i < numOfRounds; i++){
          total += calculateRoundScore(self, other, i);
       }
       return total;
@@ -134,13 +136,13 @@ public class PlayGameFrame extends JFrame{
 
    //Puts data into the JTable choices
    private void setUpTable(){
-      for(int i = 0; i < 30; i++){
+      for(int i = 0; i < numOfRounds; i++){
 
       }
    }
 
 	private class ButtonListener1 implements ActionListener{
-		public void actionPerformed(ActionEvent e)
+		public void actionPerformed(ActionEvent e){
 			if(e.getSource() == coButton1) {
             player1Ready = true;
             player1Choice = true;
@@ -176,7 +178,7 @@ public class PlayGameFrame extends JFrame{
 
    private class ButtonListener3 implements ActionListener{
       public void actionPerformed(ActionEvent e) {
-         //dispatchEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING));
+         dispose();
       }
    }
 
@@ -184,15 +186,15 @@ public class PlayGameFrame extends JFrame{
    //Will not advance round if one player is not ready
    private void nextRound(){
       if(player1Ready && player2Ready){
-         cooperate[0][round] = player1Choice;
-         cooperate[1][round] = player2Choice;
+         cooperate[0][round - 1] = player1Choice;
+         cooperate[1][round - 1] = player2Choice;
          round++;
          player1Ready = false;
          player1Choice = false;
          player2Ready = false;
          player2Choice = false;
 
-         if(round > 30){
+         if(round > numOfRounds){
             //This is where the results panel comes up once the game is over
             getContentPane().removeAll();
 
@@ -204,5 +206,9 @@ public class PlayGameFrame extends JFrame{
             repaint();
          }
       }
+   }
+
+   public static void main(String[] args) {
+      PlayGameFrame theFrame = new PlayGameFrame();
    }
 }
